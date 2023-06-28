@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
     
     private let icon: UIImageView = {
         let icon = UIImageView()
-        icon.image = UIImage(named: "Illustration")
+        icon.image = Constants.Icon.image
         icon.contentMode = .scaleAspectFit
         icon.translatesAutoresizingMaskIntoConstraints = false
         return icon
