@@ -4,7 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>AKAD10.TTF</string>
+		<string>MyriadGEO-Regular.otf</string>
+		<string>MyriadGEO-Bold.otf</string>
+		<string>MyriadGEO-Medium.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

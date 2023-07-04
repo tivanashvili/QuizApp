@@ -19,43 +19,19 @@ class SubjectPageViewController: UIViewController {
         return tableView
     }()
     
+    private lazy var scoreView: ScoreView = {
+        let view = ScoreView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Constants.ScoreView.backgroundColor
+        view.layer.cornerRadius = Constants.ScoreView.cornerRadius
+        return view
+    }()
+    
     private let userNameLabel: UILabel = {
         let label = UILabel()
         label.font = Constants.UserNameLabel.font
         label.textColor = Constants.UserNameLabel.textColor
         label.text = Constants.UserNameLabel.text
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let gpaButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = Constants.GpaButton.backgroundColor
-        button.layer.cornerRadius = Constants.GpaButton.cornerRadius
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private let gpaButtonVectorImage: UIImageView = {
-        let image = UIImageView()
-        image.image = Constants.GpaButton.image
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    private let gpaLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.GpaTextLabel.text
-        label.textColor = Constants.GpaTextLabel.textColor
-        label.backgroundColor = .clear
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let detailLabel: UILabel = {
-        let label = UILabel()
-        label.text = Constants.DetailLabel.text
-        label.textColor = Constants.DetailLabel.textColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -108,10 +84,7 @@ class SubjectPageViewController: UIViewController {
     
     private func setup() {
         setupUserNameLabelConstraints()
-        setupGpaButtonConstraints()
-        setupGpaButtonVectorImageConstraints()
-        setupGpaLabelConstraints()
-        setupDetailLabelConstraints()
+        setupScoreViewConstraints()
         setupChooseSubjectLabelConstraints()
         setupLogOutButtonConstraints()
         setupLineViewConstraints()
@@ -128,6 +101,17 @@ class SubjectPageViewController: UIViewController {
             subjectPageTableView.bottomAnchor.constraint(equalTo: lineView.topAnchor)
         ])
     }
+    
+    private func setupScoreViewConstraints() {
+        view.addSubview(scoreView)
+        NSLayoutConstraint.activate([
+            scoreView.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: Constants.ScoreView.topAnchor),
+            scoreView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.ScoreView.leadingAnchor),
+            scoreView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.ScoreView.trailingAnchor),
+            scoreView.heightAnchor.constraint(equalToConstant: Constants.ScoreView.heightAnchor)
+        ])
+    }
+    
     private func setupUserNameLabelConstraints() {
         view.addSubview(userNameLabel)
         NSLayoutConstraint.activate([
@@ -137,48 +121,10 @@ class SubjectPageViewController: UIViewController {
         ])
     }
     
-    private func setupGpaButtonConstraints() {
-        view.addSubview(gpaButton)
-        NSLayoutConstraint.activate([
-            gpaButton.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: Constants.GpaButton.topAnchor),
-            gpaButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.GpaButton.leadingAnchor),
-            gpaButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: Constants.GpaButton.trailingAnchor),
-            gpaButton.heightAnchor.constraint(equalToConstant: Constants.GpaButton.heightAnchor)
-        ])
-    }
-    
-    private func setupGpaButtonVectorImageConstraints() {
-        gpaButton.addSubview(gpaButtonVectorImage)
-        NSLayoutConstraint.activate([
-            gpaButtonVectorImage.topAnchor.constraint(equalTo: gpaButton.topAnchor, constant: Constants.GpaButtonVectorImage.top),
-            gpaButtonVectorImage.bottomAnchor.constraint(equalTo: gpaButton.bottomAnchor, constant: Constants.GpaButtonVectorImage.bottom),
-            gpaButtonVectorImage.trailingAnchor.constraint(equalTo: gpaButton.trailingAnchor, constant: Constants.GpaButtonVectorImage.trailing),
-            gpaButtonVectorImage.heightAnchor.constraint(equalToConstant: Constants.GpaButtonVectorImage.height),
-            gpaButtonVectorImage.widthAnchor.constraint(equalToConstant: Constants.GpaButtonVectorImage.width)
-        ])
-    }
-    
-    private func setupGpaLabelConstraints() {
-        gpaButton.addSubview(gpaLabel)
-        NSLayoutConstraint.activate([
-            gpaLabel.topAnchor.constraint(equalTo: gpaButton.topAnchor, constant: Constants.GpaTextLabel.topAnchor),
-            gpaLabel.bottomAnchor.constraint(equalTo: gpaButton.bottomAnchor, constant: Constants.GpaTextLabel.bottomAnchor),
-            gpaLabel.leadingAnchor.constraint(equalTo: gpaButton.leadingAnchor, constant: Constants.GpaTextLabel.leadingAnchor)
-        ])
-    }
-    
-    private func setupDetailLabelConstraints() {
-        gpaButton.addSubview(detailLabel)
-        NSLayoutConstraint.activate([
-            detailLabel.trailingAnchor.constraint(equalTo: gpaButtonVectorImage.leadingAnchor, constant: Constants.DetailLabel.trailing),
-            detailLabel.centerYAnchor.constraint(equalTo: gpaButton.centerYAnchor)
-        ])
-    }
-    
     private func setupChooseSubjectLabelConstraints() {
         view.addSubview(chooseSubjectLabel)
         NSLayoutConstraint.activate([
-            chooseSubjectLabel.topAnchor.constraint(equalTo: gpaButton.bottomAnchor, constant: Constants.ChooseSubjectLabel.topAnchor),
+            chooseSubjectLabel.topAnchor.constraint(equalTo: scoreView.bottomAnchor, constant: Constants.ChooseSubjectLabel.topAnchor),
             chooseSubjectLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.ChooseSubjectLabel.leadingAnchor),
         ])
     }
@@ -241,7 +187,7 @@ private extension SubjectPageViewController {
             static let trailing: CGFloat = -4
         }
         
-        enum GpaButton {
+        enum ScoreView {
             static let image = UIImage(named: "Polygon")
             static let backgroundColor = UIColor(hex: "537FE7")
             static let cornerRadius: CGFloat = 26
@@ -286,10 +232,6 @@ private extension SubjectPageViewController {
             static let heightAnchor: CGFloat = 42
             static let trailingAnchor: CGFloat = -16
             static let bottomAnchor: CGFloat = -14
-        }
-        
-        enum TableView {
-            static let bottomAnchor: CGFloat = 0
         }
         
         enum TableViewCell {

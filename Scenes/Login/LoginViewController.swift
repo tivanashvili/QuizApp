@@ -140,9 +140,8 @@ class LoginViewController: UIViewController {
             return
         }
         
-        let keyboardHeight = keyboardFrame.size.height / 16
-        
-        bottomConstraint.constant = -keyboardHeight - Constants.StartButton.topAnchor
+        let keyboardHeight = keyboardFrame.size.height
+        bottomConstraint.constant = -keyboardHeight
         
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
@@ -192,7 +191,7 @@ private extension LoginViewController {
         enum StartButton {
             static let cornerRadius: CGFloat = 12
             static let image = UIImage(named: "StartButton")
-            static let topAnchor: CGFloat = 26
+            static let topAnchor: CGFloat = 12
         }
         
         enum TitleLabel {
