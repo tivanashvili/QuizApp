@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViewController.swift
 //  QuizApp
 //
 //  Created by tornike ivanashvili on 23.06.23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     // MARK: Components
     private let blueImageView: UIImageView = {
@@ -56,6 +56,7 @@ class LoginViewController: UIViewController {
         startButton.layer.cornerRadius = Constants.StartButton.cornerRadius
         startButton.setImage(Constants.StartButton.image, for: .normal)
         startButton.translatesAutoresizingMaskIntoConstraints = false
+        startButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
         return startButton
     }()
     
@@ -124,6 +125,15 @@ class LoginViewController: UIViewController {
         ])
     }
     
+    @objc private func didTapLoginButton() {
+        blueImageView.isHidden = true
+        let subjectPageVC = SubjectPageViewController()
+        subjectPageVC.modalPresentationStyle = .fullScreen
+        present(subjectPageVC, animated: true) { [weak self] in
+            self?.blueImageView.isHidden = false
+        }
+    }
+    
     private func addTapGestureRecognizer() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
@@ -141,7 +151,7 @@ class LoginViewController: UIViewController {
         }
         
         let keyboardHeight = keyboardFrame.size.height
-        bottomConstraint.constant = -keyboardHeight
+        bottomConstraint.constant = -keyboardHeight / 12
         
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()

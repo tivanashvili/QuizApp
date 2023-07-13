@@ -62,8 +62,7 @@ class SubjectPageViewController: UIViewController {
     }()
     
     //MARK: Properties
-    
-    let subjects: [Subject] = [
+    private let subjects: [Subject] = [
         Subject(icon: "Globe", name: "გეოგრაფია", description: "აღწერა"),
         Subject(icon: "programming", name: "პროგრამირემა", description: "აღწერა"),
         Subject(icon: "Book", name: "ისტორია", description: "აღწერა"),
@@ -148,7 +147,6 @@ class SubjectPageViewController: UIViewController {
             logOutButton.heightAnchor.constraint(equalToConstant: Constants.LogOutButton.heightAnchor)
         ])
     }
-
 }
 
 extension SubjectPageViewController: UITableViewDataSource, UITableViewDelegate {
@@ -157,9 +155,7 @@ extension SubjectPageViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cellHeight = Constants.TableViewCell.cellHeight
-        let distanceBetweenCells = Constants.TableViewCell.distanceBetweenCells
-        return cellHeight + distanceBetweenCells
+        return 108
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -241,7 +237,7 @@ private extension SubjectPageViewController {
         }
         
         enum UserNameLabel {
-            static let text = "გამარჯობა,ირაკლი"
+            static let text = "გამარჯობა, "
             static let font = UIFont(name: "MyriadGEO", size: 16)
             static let textColor = UIColor(hex: "FFC44A")
             static let leading: CGFloat = 16
